@@ -1,0 +1,117 @@
+<!doctype html>
+
+<html lang="ru">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Игрушечка</title>
+	<link rel="stylesheet" type="text/css" href="style.css" media="screen" />
+</head>
+
+<body>
+	<section id = "main">
+		<h1 id = "title">Деление на 9...</h1>
+	
+		<div id = "rules">
+			<span id = "toggleRules">Правила игры</span>
+			<ul id = "fullRules">
+				<li>Два игрока по очереди записывают в одну строчку цифры от 1 до 5, 
+				пока не получится <nobr>2N-значное</nobr> число (Длина числа известна заранее).</li>
+				<li>Если полученное число делится на 9, выигрывает тот, кто ходил вторым.</li>
+				<li>Если полученное число не делится на 9, выигрывает тот, кто ходил первым.</li>
+			</ul>		
+		</div>
+	
+		<menu id = "startmenu">
+			<div class = "menublock">
+				Длина числа &mdash;
+				<select id = "numTurn">
+				</select> 
+				Cлучайно (от 4 до 12) <input type = "checkbox" id="randNumTurn" checked = "true"></input>.
+			</div>
+		
+			<div class = "menublock">
+				Начинает 
+				<select id = "whoStarts">
+					<option value = "0">компьютер</button>
+					<option value = "1">игрок</button>
+				</select>
+				Cлучайно <input type = "checkbox" id="randStart" checked = "true"></input>.
+			</div>
+		
+			<button id = "newGame">Новая игра!</button>
+		</menu>
+	
+		<div id = "output">
+			<span id = "digits"></span>
+			<span id = "result">
+			</span>
+		</div>
+	
+		<div id = "gameControls">
+		</div>
+	</section>
+	
+	<script src="game.js"></script>
+	<script>
+		var gameControls = document.getElementById('gameControls'),
+			
+			turnRandomizer = document.getElementById('randNumTurn'),
+			turnCount = document.getElementById('numTurn'),
+			
+			startRandomizer = document.getElementById('randStart'),
+			whoStarts = document.getElementById('whoStarts'),
+			
+			rules = document.getElementById('fullRules');
+		
+		// pass output to game
+		game.init(document.getElementById('digits'), document.getElementById('result'));
+		
+		// hide/show rules
+		document.getElementById('toggleRules').addEventListener('click', function() {
+			if (rules.style.display === 'none' || rules.style.display === '')
+				rules.style.display = 'block';
+			else
+				rules.style.display = 'none';
+		});
+		
+		// number length selector
+		for (var i = 2; i <= 100; i += 2) {
+			var option = document.createElement('option');
+			option.innerHTML = i;
+			option.value = i;
+			turnCount.appendChild(option);
+		}		
+
+		// start button
+		document.getElementById('newGame').addEventListener('click', function() {
+			var turns = turnRandomizer.checked? 2 + randn(5): Number(turnCount.value) / 2,
+				first = startRandomizer.checked? randn(2) - 1: Number(whoStarts.value);
+			
+			// *** true / false to test / play ***
+			game.start(turns, first, false);
+		});
+		
+		// create buttons 1..5
+		for (var i = 1; i <= 5; i++) {
+			(function() {
+				var num = i,
+					button = document.createElement('button');
+				button.innerHTML = i;
+				button.className = 'numIn';
+				button.addEventListener('click', function() {
+					game.move(num, true);
+					game.respond();
+				});
+				gameControls.appendChild(button);
+			}());
+		}	
+			
+		// test
+		for (var i = 0; i < 0; i++) {
+			game.start(randn(5) + 1, randn(2) - 1, true);
+		}
+	</script>
+</body>
+
+</html>

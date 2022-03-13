@@ -1,0 +1,70 @@
+button {
+	background: #00DD66;
+	color: white;
+	border: none;
+	border-radius: 0;
+}
+
+button:hover, button:focus {
+	background: orange;
+}
+
+div, select {
+	font-size: 15pt;
+}
+
+#startmenu, #output, #rules, #gameControls{
+	margin-top: 15pt;
+}
+
+
+section#main {
+	margin-left: 20%;
+	margin-right: 20%;
+}
+
+h1#title {
+	text-align: center;
+}
+
+
+span#toggleRules {
+	font-size: 1.2em;
+}
+
+span#toggleRules:hover {
+	border-bottom: solid;
+	border-width: 1px;
+}
+
+ul#fullRules {
+	display: none;
+}
+
+
+menu#startmenu {
+	padding-left: 0;
+}
+
+button#newGame {
+	margin-top: 0.5em;
+	font-size: 1.2em;
+	height: 1.6em;
+}
+
+
+#output {
+	font-size: 3em;
+	word-wrap: break-word;
+}
+
+.playerMove {
+	color: orange;
+}
+
+
+.numIn {
+	font-size: 2em;
+	width: 1.6em;
+	height: 1.6em;
+}
